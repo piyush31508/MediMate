@@ -1,7 +1,8 @@
 <?php
-require 'conn.php'
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Retrieve form data
+require 'conn.php';
+require 'form.html';
+
+if ($_SERVER['REQUEST_METHOD'] == "POST") {
     $fullName = $_POST["fullName"];
     $Number = $_POST["Number"];
     $dob = $_POST["date"];
@@ -10,40 +11,38 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $doctor = $_POST["doctor"];
     $comments = $_POST["comments"];
 
-    // You may want to handle file upload separately, this is just a basic example
-    $uploadedFile = $_FILES["fil"];
-    $fileName = $uploadedFile["name"];
-    $fileTmpName = $uploadedFile["tmp_name"];
-    $fileType = $uploadedFile["type"];
-    $fileError = $uploadedFile["error"];
-    $fileSize = $uploadedFile["size"];
+    if (isset($_FILES["fil"]) && $_FILES["fil"]["error"] == UPLOAD_ERR_OK) {
+        $tmp_name = $_FILES["fil"]["tmp_name"];
+        $fileName = $_FILES["fil"]["name"];
 
-    // Check if the file name length is within the allowed limit (12 characters)
-    if (strlen($fileName) > 12) {
-        echo "Error: File name should not be greater than 12 characters.";
-        exit();
-    }
+        // Ensure the "uploads" directory exists
+        if (!is_dir('uploads/')) {
+            mkdir('uploads/');
+        }
 
-    // Process the uploaded file, you may want to move it to a specific directory
-    // and store the file path in the database
-    if ($fileError === UPLOAD_ERR_OK) {
-        move_uploaded_file($fileTmpName, "uploads/" . $fileName);
-    }
+        // Process the uploaded file
+        $targetPath = "uploads/" . $fileName;
+        move_uploaded_file($tmp_name, $targetPath);
 
-    // You can perform further validation and processing here
-
-    // For example, you might want to save data to a database
-    // Replace the following with your database connection and query logic
+        // Use prepared statements to prevent SQL injection
+        $sql = "INSERT INTO users(`Full_Name`, `Contact_No`, `DOB`, `Age`, `Gender`, `Doc`, `Report`, `Comment`)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
     
-
-    // Replace the table_name with your actual table name
-    $sql = "INSERT INTO info(fullName, Contact_Number, dob, age, gender, doctor, comments, fileName)
-            VALUES ('$fullName', '$Number', '$dob', $age, '$gender', '$doctor', '$comments', '$fileName')";
-
-    if ($conn->query($sql) === TRUE) {
-        echo "Form submitted successfully!";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("ssssssss", $fullName, $Number, $dob, $age, $gender, $doctor, $targetPath, $comments);
+        $result = $stmt->execute();
+    
+        if ($result) {
+            echo "Form submitted successfully!";
+        } else {
+            echo "Error: " . $stmt->error;
+        }
+        
+        $stmt->close();
     } else {
-        echo "Error: " . $sql . "<br>" . $conn->error;
+        echo "Error uploading the file.";
+        echo "File Upload Error: " . $_FILES["fil"]["error"] . "<br>";
+        echo "Temp File: " . $_FILES["fil"]["tmp_name"] . "<br>";
     }
 
     $conn->close();
