@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-sSingle=1.0">
+    <title>MediMate</title>
+    <link rel="shortcut icon" type="image/icon" href="logo.png">
+    <style>
+      body {
+        background-image: url("bg-home.jpg");
+        background-position: center center;
+        background-size: cover;
+        background-attachment: fixed;
+        text-align: center;
+        font-size: 30px;
+      }
+
+      .patient_form {
+          position: absolute;
+          top: 32%;
+          left:37%;
+          display: inline-block;
+          background-color: hsla(0, 0%, 10%, 0.1);
+          border: 2px solid white;
+          margin-inline: 1.5rem;
+          padding: 2.5rem 1.5rem;
+          border-radius: 1rem;
+          backdrop-filter: blur(8px);
+      }
+      .patient_form label {
+          text-align: left;
+          display: block;
+          color: honeydew;
+          font-weight: bolder;
+          margin-bottom: 5px;
+      }
+      input{
+        background: none;
+        border-radius: 20px;
+        padding: 10px 20px;
+        margin-bottom: 20px;
+      }
+      input:hover{
+        background-color: gainsboro;
+      }
+      button{
+        border: none;
+        background-color: white;
+        border-radius: 20px;
+        padding: 15px 30px;
+      }
+    </style>
+</head>
+<body>
+    <form action="form.php" method="post" class="patient_form">
+
+      <label for="email">Enter your Email</label>
+      <input type="email" id="email" placeholder="Email..." required />
+
+      <label for="password">Enter your Password </label>
+      <input type="text" id="name" placeholder="password..." required />
+        <!-- Submit Button -->
+        <hr>
+        <button type="Access" onclick="myfunction() ">Access Your Reports</button>
+    </form>
+  <script>
+    function myfunction(){
+      window.location.href = "https://f0f865b2-9d87-4b1f-bc3b-9d5dc3ddcb65-00-2iwznov8zwwfy.sisko.replit.dev";
+    }
+  </script>
+</body>
+</html>

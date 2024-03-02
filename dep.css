@@ -1,0 +1,14 @@
+.container{
+  display: flex;
+  justify-content: center;
+  margin-top: 45px;
+  border: solid black 2px;
+  border-radius: 30px;
+}
+
+button{
+  margin-bottom: 10px;
+}
+.docimg{
+  margin-top: 20px;
+}

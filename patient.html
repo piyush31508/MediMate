@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-sSingle=1.0">
+    <title>MediMate</title>
+    <link rel="shortcut icon" type="image/icon" href="logo.png">
+    <style>
+      body {
+        background-image: url("bg-home.jpg");
+        background-position: center center;
+        background-size: cover;
+        background-attachment: fixed;
+        text-align: center;
+
+      }
+
+      .patient_form {
+          position: relative;
+          display: inline-block;
+          background-color: hsla(0, 0%, 10%, 0.1);
+          border: 2px solid white;
+          margin-inline: 1.5rem;
+          padding: 2.5rem 1.5rem;
+          border-radius: 1rem;
+          backdrop-filter: blur(20px);
+      }
+      .patient_form label {
+          text-align: left;
+          display: block;
+          color: honeydew;
+          font-weight: bolder;
+          margin-bottom: 5px; 
+      }
+      
+      input , textarea, select{
+        background: none;
+        border-radius: 20px;
+        padding: 5px 10px 5px 10px;
+        margin-bottom: 20px;
+      }
+      input:hover{
+        background-color: gainsboro;
+      }
+      button{
+        border: none;
+        background-color: white;
+        border-radius: 20px;
+        padding: 15px 30px;
+      }
+    </style>
+</head>
+<body>
+    <form action="form.php" method="post" class="patient_form">
+        <!-- Personal Information -->
+
+        <h1 style="color: white;">Patient Details</h1>
+        <label for="fullName">Full Name:</label>
+        <input type="text" id="fullName" name="fullName" required>
+
+        <label for="Number">Contact No.</label>
+        <input type="tel" id="Number" name="Number" required>
+
+        <label for="date">Date Of Birth:</label>
+        <input type="date" id="date" name="date" required>
+
+        <label for="gender">Gender:</label>
+        <select id="gender" name="gender" required>
+          <option value="male">Male</option>
+          <option value="female">Female</option>
+          <option value="other">Other</option>
+          <option value="prefer">prefer not to say</option>
+        </select>
+
+        <label for="doctor">Prescribed By :</label>
+        <input type="text" id="doctor" name="doctor" required>
+
+      <label for="fil">Upload Report</label>
+      <input type="file" accept=".pdf, .docs ,.jpeg , .png , .jpg">
+        <label for="comments">Additional Notes or Comments:</label>
+        <textarea id="comments" name="comments" rows="4"></textarea>
+
+        <!-- Submit Button -->
+        <hr>
+        <button type="submit" onclick="myfunction() ">Submit</button>
+    </form>
+  <script>
+    function myfunction(){
+      window.location.href = "https://f0f865b2-9d87-4b1f-bc3b-9d5dc3ddcb65-00-2iwznov8zwwfy.sisko.replit.dev";
+    }
+  </script>
+</body>
+</html>
